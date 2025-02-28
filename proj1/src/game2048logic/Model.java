@@ -253,10 +253,12 @@ public class Model {
         /**
          * move all the column (just both board) up.
          */
+        board.setViewingPerspective(side);
         for(int i = 0;i < size(); i++)
         {
             tiltColumn(i);
         }
+        board.setViewingPerspective(Side.NORTH);
     }
 
     /** Tilts every column of the board toward SIDE.

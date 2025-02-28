@@ -130,6 +130,39 @@ public class Model {
      */
     public boolean atLeastOneMoveExists() {
         // TODO: Fill in this function.
+        if(emptySpaceExists())
+            return true;
+        else{
+            for(int i = 0;i < size();i++)
+            {
+                for(int j = 0;j <size();j++)
+                {
+                    //if the tile is the last one ,don't need to compare with adjacent tiles
+                    if(j+1 == size() && i+1 == size() )
+                    {
+                        break;
+                    }
+                    //if the tile is on the top line ,don't need to compare with the higher line's tiles
+                    else if (j+1 == size() ) {
+                        if(tile(i,j).value() == tile(i+1,j).value())
+                        return true;
+                    }
+                    //if the tile is on the rightest line ,it don't have the righter tile.
+                    else if (i+1 == size() )
+                    {
+                        if(tile(i,j).value() == tile(i,j+1).value())
+                        return true;
+                    }
+                    else {//compare with the right tile and the upper tile
+                        if (tile(i, j).value() == tile(i, j+1).value() || tile(i, j).value() == tile(i+1, j).value())
+                        {
+                            return true;
+                        }
+
+                    }
+                }
+            }
+        }
         return false;
     }
 
@@ -151,7 +184,36 @@ public class Model {
         Tile currTile = board.tile(x, y);
         int myValue = currTile.value();
         int targetY = y;
-
+        if(currTile != null)
+        {
+            /**
+             * check if there's a tile(on the top of the currTile)'s value is no equal to the currTile's
+             * if so,please move the currTile to the below.
+             * else move to the top.
+             */
+            /**
+             * if there's a tile waiting for merging,first we must consider it's wasmerged
+             * if wasMerged is false ,we can move the currTile to the top currently
+             * if not , we just move currTile below that nowasMerged tile.
+             */
+            for(int j = targetY + 1 ; j < size() ; j++)
+            {
+                if(tile(x,j) != null)
+                {
+                    if(tile(x,j).value() != myValue)
+                    {
+                        board.move(x,j-1,currTile);//move the currTile to the below
+                        return;
+                    }
+                    else if(tile(x,j).wasMerged() == true)//move currTile below that nowasMerged tile.
+                    {
+                        board.move(x,j-1,currTile);
+                        return;
+                    }
+                }
+            }
+            board.move(x,size()-1,currTile);
+        }
         // TODO: Tasks 5, 6, and 10. Fill in this function.
     }
 

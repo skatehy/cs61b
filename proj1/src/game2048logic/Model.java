@@ -224,6 +224,17 @@ public class Model {
      * */
     public void tiltColumn(int x) {
         // TODO: Task 7. Fill in this function.
+        /**
+         * order:the tile from up to bottom move to the correct place in sequence.
+         * tile:must be a no null tile
+         */
+        for(int i = size()-1; i >=0;i--)
+        {
+            if(tile(x,i) != null)
+            {
+                moveTileUpAsFarAsPossible(x,i);
+            }
+        }
     }
 
     public void tilt(Side side) {

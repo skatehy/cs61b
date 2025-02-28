@@ -210,6 +210,17 @@ public class Model {
                         board.move(x,j-1,currTile);
                         return;
                     }
+                    else{
+                        for(int k = j + 1 ; k < size() ; k++)
+                        {
+                            if(tile(x,k) != null)
+                            {
+                                board.move(x,k-1,currTile);
+                                return;
+                            }
+                        }
+
+                    }
                 }
             }
             board.move(x,size()-1,currTile);
@@ -228,7 +239,7 @@ public class Model {
          * order:the tile from up to bottom move to the correct place in sequence.
          * tile:must be a no null tile
          */
-        for(int i = size()-1; i >=0;i--)
+        for(int i = size()-2; i >=0;i--)
         {
             if(tile(x,i) != null)
             {
@@ -239,6 +250,13 @@ public class Model {
 
     public void tilt(Side side) {
         // TODO: Tasks 8 and 9. Fill in this function.
+        /**
+         * move all the column (just both board) up.
+         */
+        for(int i = 0;i < size(); i++)
+        {
+            tiltColumn(i);
+        }
     }
 
     /** Tilts every column of the board toward SIDE.

@@ -202,12 +202,16 @@ public class Model {
                 {
                     if(tile(x,j).value() != myValue)
                     {
+                        if(j-1!=targetY)
                         board.move(x,j-1,currTile);//move the currTile to the below
+
                         return;
                     }
                     else if(tile(x,j).wasMerged() == true)//move currTile below that nowasMerged tile.
                     {
+                        if(j-1!=targetY)
                         board.move(x,j-1,currTile);
+
                         return;
                     }
                     else{
@@ -215,14 +219,23 @@ public class Model {
                         {
                             if(tile(x,k) != null)
                             {
-                                board.move(x,k-1,currTile);
+                                if(k-1!=targetY) {
+                                    board.move(x, k - 1, currTile);
+                                    score += 2 * myValue;
+                                }
                                 return;
                             }
-                        }
 
+                        }
+                        if(size()-1!=targetY) {
+                            board.move(x, size() - 1, currTile);
+                            score += 2 * myValue;
+                            return;
+                        }
                     }
                 }
             }
+            if(targetY != size()-1)
             board.move(x,size()-1,currTile);
         }
         // TODO: Tasks 5, 6, and 10. Fill in this function.
@@ -239,7 +252,7 @@ public class Model {
          * order:the tile from up to bottom move to the correct place in sequence.
          * tile:must be a no null tile
          */
-        for(int i = size()-2; i >=0;i--)
+        for(int i = size()-1; i >=0;i--)
         {
             if(tile(x,i) != null)
             {

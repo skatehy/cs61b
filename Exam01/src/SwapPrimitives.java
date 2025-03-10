@@ -16,5 +16,6 @@ public class SwapPrimitives {
         System.out.println(a);
         System.out.println(b);
         //except : 7,6
+        //hello ,you are fine
     }
 }

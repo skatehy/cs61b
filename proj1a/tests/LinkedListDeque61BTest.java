@@ -57,4 +57,83 @@ public class LinkedListDeque61BTest {
      }
 
     // Below, you'll write your own tests for LinkedListDeque61B.
+    @Test
+    public void isEmptyTest()
+    {
+        //test an empty list and an unempty list
+        LinkedListDeque61B<Integer> emptylist = new LinkedListDeque61B<>();
+        LinkedListDeque61B<Integer> unemptylist = new LinkedListDeque61B<>();
+        LinkedListDeque61B<Integer> unemptylist1 = new LinkedListDeque61B<>();
+        unemptylist.addFirst(10);
+        unemptylist1.addLast(20);
+        assertThat(emptylist.isEmpty()).isTrue();
+        assertThat(unemptylist.isEmpty()).isFalse();
+        assertThat(unemptylist1.isEmpty()).isFalse();
+    }
+
+    @Test
+    public void sizeTest()
+    {
+        LinkedListDeque61B<Integer> list = new LinkedListDeque61B<>();
+        LinkedListDeque61B<Integer> list1 = new LinkedListDeque61B<>();
+        LinkedListDeque61B<Integer> list2 = new LinkedListDeque61B<>();
+        list1.addFirst(10);
+        list2.addLast(20);
+        list2.addFirst(30);
+        assertThat(list.size()).isEqualTo(0);
+        assertThat(list1.size()).isEqualTo(1);
+        assertThat(list2.size()).isEqualTo(2);
+    }
+    @Test
+    public void getTest()
+    {
+        //three test:one nagative index,one big index,one normal index;
+        LinkedListDeque61B<Integer> list = new LinkedListDeque61B<>();
+        list.addFirst(10);
+        list.addLast(20);
+        list.addFirst(30);
+        assertThat(list.get(100000000)).isEqualTo(null);
+        assertThat(list.get(-32)).isEqualTo(null);
+        assertThat(list.get(2)).isEqualTo(10);
+    }
+    @Test
+    public void getRecursiveTest()
+    {
+        //three test:one nagative index,one big index,one normal index;
+        LinkedListDeque61B<Integer> list = new LinkedListDeque61B<>();
+        list.addFirst(10);
+        list.addLast(20);
+        list.addFirst(30);
+        assertThat(list.get(100000000)).isEqualTo(null);
+        assertThat(list.get(-32)).isEqualTo(null);
+        assertThat(list.get(2)).isEqualTo(10);
+    }
+    @Test
+    public void removeFirstTest()
+    {
+        //a basic test:no empty list
+        LinkedListDeque61B<Integer> list = new LinkedListDeque61B<>();
+        list.addFirst(10);
+        list.addLast(20);
+        list.addFirst(30);
+        list.removeFirst();
+        assertThat(list.toList()).containsExactly(10,20);
+        //empty list should return null
+        LinkedListDeque61B<Integer> list2 = new LinkedListDeque61B<>();
+        assertThat(list2.removeFirst()).isEqualTo(null);
+    }
+    @Test
+    public void removeLastTest()
+    {
+        //no empty list
+        LinkedListDeque61B<Integer> list = new LinkedListDeque61B<>();
+        list.addFirst(10);
+        list.addLast(20);
+        list.addFirst(30);
+        list.removeLast();
+        assertThat(list.toList()).containsExactly(30,10);
+        //empty list
+        LinkedListDeque61B<Integer> list2 = new LinkedListDeque61B<>();
+        assertThat(list2.removeFirst()).isEqualTo(null);
+    }
 }

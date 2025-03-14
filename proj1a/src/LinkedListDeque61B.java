@@ -15,6 +15,8 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         }
     }
     Node sentinel;
+    private int size = 0;
+    //constructor
     public LinkedListDeque61B()
     {
         sentinel = new Node(sentinel,null,sentinel);
@@ -32,12 +34,14 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
         // a nice sentinel idea
         sentinel.next = p;
         p.next.prev = p;
+        size++;
     }
     @Override
     public void addLast(T x) {
         Node p = sentinel.prev;
         p.next = new Node(p, x, p.next);
         sentinel.prev = p.next;
+        size++;
     }
 
     @Override
@@ -54,31 +58,71 @@ public class LinkedListDeque61B<T> implements Deque61B<T> {
 
     @Override
     public boolean isEmpty() {
+        if(sentinel.next == sentinel)
+            return true;
         return false;
     }
 
     @Override
     public int size() {
-        return 0;
+        return size;
     }
 
     @Override
     public T removeFirst() {
-        return null;
+        /*
+        list empty : return null
+         */
+        if(sentinel.next == sentinel)return null;
+        Node p = sentinel.next;
+        sentinel.next = p.next;
+        p.next.prev = sentinel;
+        return p.data;
     }
 
     @Override
     public T removeLast() {
-        return null;
+        if(sentinel.next == sentinel)return null;
+        Node p = sentinel.prev;
+        p.prev.next = sentinel;
+        sentinel.prev = p.prev;
+        return p.data;
     }
 
     @Override
     public T get(int index) {
-        return null;
+        /*
+        if index is a negative index or larger than the list.length return null
+        iterate to get the item in index.
+        the index representative which number is it.
+         */
+        if(index < 0 || index > this.size())
+            return null;
+        Node p = sentinel.next;
+        for(int i = 1; i < index; i++)
+        {
+            p = p.next;
+        }
+        return p.data;
     }
 
     @Override
     public T getRecursive(int index) {
-        return null;
+
+        return getRecursiveHelper(index,this.sentinel.next);
+    }
+    public T getRecursiveHelper(int index, Node p)
+    {
+        /*
+        I want to get index,equals to my brother get index -1 ,and the brother...get index 1
+        the index is which number it is
+        base case : my brother get when index = 1
+         */
+        if(index < 0 || index > this.size())
+        {
+            return null;
+        }
+        if(index == 1)return p.data;
+        return getRecursiveHelper(index-1,p.next);
     }
 }

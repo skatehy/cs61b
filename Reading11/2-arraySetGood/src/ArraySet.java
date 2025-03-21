@@ -99,7 +99,6 @@ public class ArraySet<T> implements Iterable<T>{
     }
 
      //equals() method to equal two ArraySet
-
     @Override
     public boolean equals(Object obj) {
         if(this == obj)return true;

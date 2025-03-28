@@ -163,7 +163,7 @@ public class ArrayDeque61B<T> implements Deque61B<T>
 
         @Override
         public boolean hasNext() {
-            if(Math.floorMod(wispod, items.length) != nextLast)
+            if(Math.floorMod(wispod  , items.length) != nextLast)
                 return true;
             return false;
         }

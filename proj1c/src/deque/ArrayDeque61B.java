@@ -137,9 +137,9 @@ public class ArrayDeque61B<T> implements Deque61B<T>
 
     @Override
     public T get(int index) {
-        //index is the index of items
+        //index is the index that users use
         if(index < 0 || index >= size)return null;
-        return items[index];
+        return items[Math.floorMod(nextFirst+index+1,items.length)];
     }
 
     @Override
